@@ -1,0 +1,61 @@
+project:
+  id: "tutorial-nubsterz"
+  name: "Nubsterz Dodge the Meteors"
+  repo: "Garrin-Project-Labs/project-tutorial-nubsterz"
+  sourceOfTruth: discord
+
+owner:
+  discordUserId: "99697477099212800"
+  label: "Nubsterz"
+
+discord:
+  guildId: "1515020347425030245"
+  channelId: "1517725825951203348"
+  visibility: "public"
+  projectsCategoryId: "1516195966330343444"
+  projectCreationChannelId: "1516196374620799127"
+  roles:
+    viewer:
+      roleId: "1517725818519027923"
+      name: "tutorial-nubsterz-viewer"
+    contributor:
+      roleId: "1517725820595081227"
+      name: "tutorial-nubsterz-contributor"
+    maintainer:
+      roleId: "1517725822818062496"
+      name: "tutorial-nubsterz-maintainer"
+
+authorization:
+  allowViewerQuestions: true
+  allowContributorsToClaimTasks: true
+  requireMaintainerForPlanApproval: true
+  requireMaintainerForDocsAndMemory: true
+  requireOwnerForInvites: false
+  requireOwnerForRepoCreation: true
+  requireOwnerForArchiveDelete: true
+  requireGlobalOwnerForGatewayConfig: true
+
+publishing:
+  githubPages: true
+  githubPagesStatus: "pending"
+  githubPagesUrl: "https://garrin-project-labs.github.io/project-tutorial-nubsterz/"
+  githubPagesSource: "main:/docs"
+  publicDemos: true
+
+workflow:
+  taskThreads: automatic
+  taskCommandStyle: natural_language
+  friendlyTaskName: quest
+  requireMention: true
+  jamMode: temporary_ambient
+  branchNaming: "task/<id>-<slug>"
+  requirePlanApproval: true
+  requireMaintainerForDocsAndMemory: true
+  allowBotMergeWithMaintainerApproval: true
+  githubIssues: false
+
+audit:
+  level: medium
+  path: ".project/audit/events.jsonl"
+  includePrLinks: true
+  includeDiscordThreadLinks: true
