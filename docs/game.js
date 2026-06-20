@@ -144,7 +144,6 @@ function step(timestamp) {
   frame++;
 
   const slowMode = timestamp < slowModeUntil;
-  const speedMultiplier = slowMode ? 0.45 : 1;
 
   if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) pilot.x -= 6;
   if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) pilot.x += 6;
@@ -156,6 +155,7 @@ function step(timestamp) {
   }
 
   for (const meteor of meteors) {
+    const speedMultiplier = slowMode && meteor.isYarn ? 0.35 : 1;
     meteor.x += meteor.dx * speedMultiplier;
     meteor.y += meteor.dy * speedMultiplier;
     meteor.tilt += meteor.spin * speedMultiplier;
@@ -185,7 +185,7 @@ function step(timestamp) {
       meteors.splice(i, 1);
       if (Math.random() < 0.1) {
         slowModeUntil = timestamp + slowModeLength;
-        statusEl.textContent = 'Glowing yarn power-up! Slow mode for 3.65 seconds.';
+        statusEl.textContent = 'Glowing yarn power-up! Only yarn slows for 3.65 seconds.';
       } else {
         statusEl.textContent = 'Caught glowing yarn! +5 score.';
       }
@@ -256,7 +256,7 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#faff00';
     ctx.font = '18px sans-serif';
-    ctx.fillText('SLOW MODE', canvas.width - 128, 36);
+    ctx.fillText('YARN SLOW MODE', canvas.width - 176, 36);
   }
 
   if (catImage.complete) {
@@ -276,8 +276,19 @@ function draw() {
     ctx.translate(meteor.x + meteor.size / 2, meteor.y + meteor.size / 2);
     ctx.rotate(meteor.tilt);
     if (meteor.isYarn) {
+      const pulse = 1 + Math.sin(frame * 0.22) * 0.14;
       ctx.shadowColor = '#faff00';
-      ctx.shadowBlur = 22;
+      ctx.shadowBlur = 42;
+      ctx.fillStyle = 'rgba(250, 255, 0, .28)';
+      ctx.beginPath();
+      ctx.arc(0, 0, meteor.size * 0.95 * pulse, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(250, 255, 0, .95)';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(0, 0, meteor.size * 0.7 * pulse, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.shadowBlur = 28;
       ctx.fillStyle = '#faff00';
     } else {
       ctx.shadowBlur = 0;
