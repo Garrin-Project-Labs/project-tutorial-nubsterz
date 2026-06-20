@@ -25,7 +25,7 @@
         <button id="start">Start cyberpunk dodge</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move with arrow keys or WASD. Missed objects are +1, glowing yellow yarn is +5, and rare yarn power-ups slow only the yarn for 3.65 seconds.</p>
+      <p class="hint">Move with arrow keys or WASD. Missed objects are +1, glowing yellow yarn is +5, yarn naturally falls slower, and rare yarn power-ups slow everything for 3.65 seconds.</p>
     </section>
 
     <section class="quests">
@@ -36,7 +36,7 @@
         <li><strong>Pick the vibe:</strong> the cat stayed, but the rest became banana space disco chaos.</li>
         <li><strong>Add a twist:</strong> falling things now arrive in surprise-sized bursts.</li>
         <li><strong>Make your own quest:</strong> space theme replaced with a neon cyberpunk street.</li>
-        <li><strong>Nubsterz's bonus quest:</strong> extra-bright glowing yellow yarn gives +5, rare yarn-only slow mode lasts 3.65 seconds, and every 10 points plays a cute beep-meow over fast arcade music.</li>
+        <li><strong>Nubsterz's bonus quest:</strong> extra-bright glowing yellow yarn falls slower, gives +5, rare slow mode lasts 3.65 seconds, and every 10 points plays a cute beep-meow over fast arcade music.</li>
       </ol>
       <p>Back in Discord, ask the bot: <code>@G-Claw-Bot give me a quest</code>.</p>
     </section>

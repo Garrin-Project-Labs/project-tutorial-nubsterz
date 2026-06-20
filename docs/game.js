@@ -155,7 +155,9 @@ function step(timestamp) {
   }
 
   for (const meteor of meteors) {
-    const speedMultiplier = slowMode && meteor.isYarn ? 0.35 : 1;
+    const powerUpMultiplier = slowMode ? 0.45 : 1;
+    const yarnMultiplier = meteor.isYarn ? 0.55 : 1;
+    const speedMultiplier = powerUpMultiplier * yarnMultiplier;
     meteor.x += meteor.dx * speedMultiplier;
     meteor.y += meteor.dy * speedMultiplier;
     meteor.tilt += meteor.spin * speedMultiplier;
@@ -185,7 +187,7 @@ function step(timestamp) {
       meteors.splice(i, 1);
       if (Math.random() < 0.1) {
         slowModeUntil = timestamp + slowModeLength;
-        statusEl.textContent = 'Glowing yarn power-up! Only yarn slows for 3.65 seconds.';
+        statusEl.textContent = 'Glowing yarn power-up! Everything slows for 3.65 seconds.';
       } else {
         statusEl.textContent = 'Caught glowing yarn! +5 score.';
       }
@@ -256,7 +258,7 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#faff00';
     ctx.font = '18px sans-serif';
-    ctx.fillText('YARN SLOW MODE', canvas.width - 176, 36);
+    ctx.fillText('SLOW MODE', canvas.width - 128, 36);
   }
 
   if (catImage.complete) {
