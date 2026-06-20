@@ -35,7 +35,7 @@ function updateHud() {
 
 function spawnMeteor() {
   const size = 26 + Math.random() * 22;
-  meteors.push({ x: Math.random() * (canvas.width - size), y: -size, size, speed: 2.2 + Math.random() });
+  meteors.push({ x: Math.random() * (canvas.width - size), y: -size, size, speed: 2.2 + Math.random(), face: '😎' });
 }
 
 function hit(a, b) {
@@ -61,7 +61,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked! The black star cat needs another try.';
+      statusEl.textContent = 'Bonked by Sean! The black star cat needs another try.';
       draw();
       return;
     }
@@ -92,7 +92,7 @@ function draw() {
 
   for (const meteor of meteors) {
     ctx.font = `${meteor.size}px serif`;
-    ctx.fillText('☄️', meteor.x, meteor.y + meteor.size);
+    ctx.fillText(meteor.face, meteor.x, meteor.y + meteor.size);
   }
 
   if (!running) {
