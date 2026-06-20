@@ -1,11 +1,11 @@
 :root {
   color-scheme: dark;
-  --bg: #1b102f;
-  --panel: #24114f;
-  --accent: #fbff12;
-  --accent-2: #ff4fd8;
-  --text: #fff9db;
-  --muted: #ffd6fb;
+  --bg: #050014;
+  --panel: #0d1030;
+  --accent: #00f5ff;
+  --accent-2: #ff2bd6;
+  --text: #e8fbff;
+  --muted: #9defff;
 }
 
 * { box-sizing: border-box; }
@@ -15,9 +15,12 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 18%, rgba(251, 255, 18, .34), transparent 15rem),
-    radial-gradient(circle at 82% 12%, rgba(255, 79, 216, .35), transparent 16rem),
-    linear-gradient(135deg, #1b102f 0%, #03213f 45%, #3b0764 100%);
+    linear-gradient(rgba(0, 245, 255, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 43, 214, .08) 1px, transparent 1px),
+    radial-gradient(circle at 18% 18%, rgba(0, 245, 255, .35), transparent 15rem),
+    radial-gradient(circle at 82% 10%, rgba(255, 43, 214, .34), transparent 18rem),
+    linear-gradient(135deg, #050014 0%, #061a3a 48%, #180025 100%);
+  background-size: 48px 48px, 48px 48px, auto, auto, auto;
 }
 .shell {
   width: min(960px, calc(100% - 32px));
@@ -36,9 +39,9 @@ h1 { margin: 8px 0; font-size: clamp(2.2rem, 7vw, 5rem); }
 #tagline { color: var(--muted); font-size: 1.1rem; }
 .game-card, .quests {
   background: color-mix(in srgb, var(--panel) 88%, black);
-  border: 2px solid rgba(251, 255, 18, .55);
-  border-radius: 30px;
-  box-shadow: 0 24px 80px rgba(255, 79, 216, .22), 0 0 42px rgba(251, 255, 18, .12);
+  border: 2px solid rgba(0, 245, 255, .68);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(255, 43, 214, .24), 0 0 42px rgba(0, 245, 255, .18);
   padding: 18px;
   margin: 18px 0;
 }
@@ -49,7 +52,7 @@ canvas {
   aspect-ratio: 12 / 7;
   margin: 0 auto;
   border-radius: 18px;
-  background: linear-gradient(#34146d, #071f3d);
+  background: linear-gradient(#020817, #0b102e);
 }
 .hud, .controls {
   display: flex;

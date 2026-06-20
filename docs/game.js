@@ -103,25 +103,36 @@ function step(timestamp) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const sky = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  sky.addColorStop(0, '#3b0f70');
-  sky.addColorStop(0.48, '#09264f');
-  sky.addColorStop(1, '#ff4fd8');
+  sky.addColorStop(0, '#040016');
+  sky.addColorStop(0.52, '#071a3f');
+  sky.addColorStop(1, '#19002b');
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = 'rgba(251, 255, 18, .75)';
+  ctx.strokeStyle = 'rgba(0, 245, 255, .22)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < canvas.width; x += 42) {
+    ctx.beginPath();
+    ctx.moveTo(x + (frame * 0.6) % 42, 0);
+    ctx.lineTo(x - 90, canvas.height);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = 'rgba(0, 245, 255, .85)';
   for (let i = 0; i < 54; i++) {
     const x = (i * 97 + frame * 0.15) % canvas.width;
     const y = (i * 53 + frame * 0.35) % canvas.height;
-    ctx.fillRect(x, y, 3, 3);
+    ctx.fillRect(x, y, 2, 8);
   }
 
-  ctx.fillStyle = 'rgba(255, 79, 216, .22)';
-  for (let i = 0; i < 9; i++) {
-    const x = (i * 83 + frame * 0.55) % canvas.width;
-    ctx.beginPath();
-    ctx.arc(x, 52 + i * 34, 12 + (i % 3) * 5, 0, Math.PI * 2);
-    ctx.fill();
+  ctx.fillStyle = 'rgba(255, 43, 214, .42)';
+  for (let i = 0; i < 10; i++) {
+    const w = 30 + (i % 4) * 18;
+    const h = 50 + (i % 3) * 34;
+    const x = (i * 77 - frame * 0.25) % (canvas.width + 80) - 40;
+    const y = canvas.height - h - (i % 2) * 28;
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = i % 2 ? 'rgba(0, 245, 255, .55)' : 'rgba(255, 43, 214, .42)';
   }
 
   if (catImage.complete) {
@@ -147,14 +158,14 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Cat unchanged. Everything else: randomized.', 24, 36);
+    ctx.fillText('Cyberpunk city loaded. Cat unchanged.', 24, 36);
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
-  statusEl.textContent = 'Banana space disco mode';
+  statusEl.textContent = 'Cyberpunk dodge mode';
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);
