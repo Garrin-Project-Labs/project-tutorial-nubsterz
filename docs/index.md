@@ -25,7 +25,7 @@
         <button id="start">Start Nubsterz Meteor Dash</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move the black star cat with arrow keys or WASD. Dodge the falling Sean faces!</p>
+      <p class="hint">Move the real black star cat with arrow keys or WASD. Dodge the falling Sean faces!</p>
     </section>
 
     <section class="quests">
@@ -33,7 +33,7 @@
       <ol>
         <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
         <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
-        <li><strong>Pick the vibe:</strong> black star cat versus falling Sean faces.</li>
+        <li><strong>Pick the vibe:</strong> the real black star cat versus falling Sean faces.</li>
         <li><strong>Add a twist:</strong> add a bonus, shield, level rule, or another tiny mechanic.</li>
         <li><strong>Make your own quest:</strong> choose one thing you want to improve.</li>
       </ol>

@@ -6,7 +6,11 @@ const statusEl = document.querySelector('#status');
 const startBtn = document.querySelector('#start');
 const resetBtn = document.querySelector('#reset');
 
-const pilot = { x: 340, y: 360, w: 44, h: 36, emoji: '🐈‍⬛', name: 'Nubsterz Black Star Cat' };
+const catImage = new Image();
+catImage.src = 'assets/nubsterz-cat.png';
+catImage.addEventListener('load', draw);
+
+const pilot = { x: 340, y: 326, w: 64, h: 74, name: 'Nubsterz Black Star Cat' };
 let meteors = [];
 let score = 0;
 let level = 1;
@@ -83,8 +87,12 @@ function draw() {
     ctx.fillRect(x, y, 2, 2);
   }
 
-  ctx.font = '34px serif';
-  ctx.fillText(pilot.emoji, pilot.x, pilot.y + pilot.h);
+  if (catImage.complete) {
+    ctx.drawImage(catImage, pilot.x, pilot.y, pilot.w, pilot.h);
+  } else {
+    ctx.font = '34px serif';
+    ctx.fillText('🐈‍⬛', pilot.x, pilot.y + pilot.h);
+  }
 
   ctx.fillStyle = '#eef6ff';
   ctx.font = '14px sans-serif';
