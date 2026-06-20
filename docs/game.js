@@ -17,6 +17,7 @@ let level = 1;
 let running = false;
 let lastSpawn = 0;
 let frame = 0;
+let nextSpawnDelay = 700;
 const fallingThings = ['🍌', '🪩', '🦆', '🌮', '🧃', '😎'];
 const keys = new Set();
 const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
@@ -27,6 +28,7 @@ function reset() {
   score = 0;
   level = 1;
   frame = 0;
+  nextSpawnDelay = 700;
   running = false;
   statusEl.textContent = 'Ready for launch';
   updateHud();
@@ -55,6 +57,12 @@ function spawnMeteor() {
   });
 }
 
+function spawnChaosBurst() {
+  const count = 1 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < count; i++) spawnMeteor();
+  nextSpawnDelay = 380 + Math.random() * 1050;
+}
+
 function hit(a, b) {
   return a.x < b.x + b.size && a.x + a.w > b.x && a.y < b.y + b.size && a.y + a.h > b.y;
 }
@@ -67,8 +75,8 @@ function step(timestamp) {
   if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) pilot.x += 6;
   pilot.x = Math.max(0, Math.min(canvas.width - pilot.w, pilot.x));
 
-  if (timestamp - lastSpawn > 900) {
-    spawnMeteor();
+  if (timestamp - lastSpawn > nextSpawnDelay) {
+    spawnChaosBurst();
     lastSpawn = timestamp;
   }
 
