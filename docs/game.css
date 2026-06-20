@@ -37,13 +37,33 @@ body {
 }
 h1 { margin: 8px 0; font-size: clamp(2.2rem, 7vw, 5rem); }
 #tagline { color: var(--muted); font-size: 1.1rem; }
-.game-card, .quests {
+.game-card {
   background: color-mix(in srgb, var(--panel) 88%, black);
   border: 2px solid rgba(0, 245, 255, .68);
   border-radius: 18px;
   box-shadow: 0 24px 80px rgba(255, 43, 214, .24), 0 0 42px rgba(0, 245, 255, .18);
   padding: 18px;
   margin: 18px 0;
+}
+.arcade-cabinet {
+  position: relative;
+  border: 4px solid #faff00;
+  box-shadow:
+    0 28px 90px rgba(255, 43, 214, .34),
+    0 0 56px rgba(0, 245, 255, .24),
+    inset 0 0 28px rgba(250, 255, 0, .1);
+}
+.marquee {
+  margin: 0 auto 14px;
+  padding: 10px 14px;
+  width: fit-content;
+  border: 2px solid rgba(250, 255, 0, .8);
+  border-radius: 999px;
+  color: #faff00;
+  background: rgba(0, 0, 0, .32);
+  text-shadow: 0 0 12px #faff00;
+  letter-spacing: .18em;
+  font-weight: 900;
 }
 canvas {
   display: block;
@@ -77,9 +97,18 @@ button {
 }
 button + button { background: var(--accent-2); }
 .hint { text-align: center; color: var(--muted); }
-.quests code {
-  color: var(--accent-2);
-  background: rgba(255,255,255,.08);
-  border-radius: 6px;
-  padding: 2px 6px;
+.quick-guide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
 }
+.quick-guide p {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 245, 255, .32);
+  border-radius: 12px;
+  background: rgba(255,255,255,.07);
+  color: var(--muted);
+}
+.quick-guide strong { color: var(--accent-2); }

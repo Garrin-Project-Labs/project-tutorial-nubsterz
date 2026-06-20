@@ -9,36 +9,29 @@
 <body>
   <main class="shell">
     <section class="hero">
-      <p class="eyebrow">Nubsterz's neon future city</p>
+      <p class="eyebrow">8-bit neon arcade</p>
       <h1>Nubsterz Cyber Cat Run</h1>
-      <p id="tagline">The cat stays. The game is now a neon cyberpunk street.</p>
+      <p id="tagline">Dodge the chaos, catch glowing yarn, and chase a bigger score.</p>
     </section>
 
-    <section class="game-card" aria-label="Randomized cat dodge game">
+    <section class="game-card arcade-cabinet" aria-label="Nubsterz Cyber Cat Run arcade game">
+      <div class="marquee">NUBSTERZ // CYBER CAT RUN</div>
       <canvas id="game" width="720" height="420"></canvas>
       <div class="hud">
-        <span>Score: <strong id="score">0</strong></span>
-        <span>Level: <strong id="level">1</strong></span>
-        <span>Status: <strong id="status">Unfinished</strong></span>
+        <span>Score <strong id="score">0</strong></span>
+        <span>Level <strong id="level">1</strong></span>
+        <span>Status <strong id="status">Ready</strong></span>
       </div>
       <div class="controls">
-        <button id="start">Start cyberpunk dodge</button>
+        <button id="start">Start Game</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move with arrow keys or WASD. Missed objects are +1, glowing yellow yarn is +5, yarn naturally falls slower, and rare yarn power-ups slow everything for 3.65 seconds.</p>
-    </section>
-
-    <section class="quests">
-      <h2>Tutorial quests</h2>
-      <ol>
-        <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
-        <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
-        <li><strong>Pick the vibe:</strong> the cat stayed, but the rest became banana space disco chaos.</li>
-        <li><strong>Add a twist:</strong> falling things now arrive in surprise-sized bursts.</li>
-        <li><strong>Make your own quest:</strong> space theme replaced with a neon cyberpunk street.</li>
-        <li><strong>Nubsterz's bonus quest:</strong> extra-bright glowing yellow yarn falls slower, gives +5, rare slow mode lasts 3.65 seconds, and every 10 points plays a cute beep-meow over fast arcade music.</li>
-      </ol>
-      <p>Back in Discord, ask the bot: <code>@G-Claw-Bot give me a quest</code>.</p>
+      <div class="quick-guide" aria-label="How to play">
+        <p><strong>Move:</strong> Arrow keys or WASD</p>
+        <p><strong>Dodge:</strong> missed objects are +1</p>
+        <p><strong>Catch:</strong> glowing yellow yarn is +5</p>
+        <p><strong>Power-up:</strong> rare yarn slows everything for 3.65 seconds</p>
+      </div>
     </section>
   </main>
   <script src="game.js"></script>
