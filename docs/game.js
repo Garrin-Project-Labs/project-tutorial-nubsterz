@@ -17,6 +17,7 @@ let level = 1;
 let running = false;
 let lastSpawn = 0;
 let frame = 0;
+const fallingThings = ['🍌', '🪩', '🦆', '🌮', '🧃', '😎'];
 const keys = new Set();
 const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
 
@@ -39,7 +40,8 @@ function updateHud() {
 
 function spawnMeteor() {
   const size = 26 + Math.random() * 22;
-  meteors.push({ x: Math.random() * (canvas.width - size), y: -size, size, speed: 2.2 + Math.random(), face: '😎' });
+  const face = fallingThings[Math.floor(Math.random() * fallingThings.length)];
+  meteors.push({ x: Math.random() * (canvas.width - size), y: -size, size, speed: 2.2 + Math.random(), face });
 }
 
 function hit(a, b) {
@@ -65,7 +67,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked by Sean! The black star cat needs another try.';
+      statusEl.textContent = 'Bonked by space chaos! The cat needs another try.';
       draw();
       return;
     }
@@ -77,14 +79,26 @@ function step(timestamp) {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#070a1a';
+  const sky = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  sky.addColorStop(0, '#3b0f70');
+  sky.addColorStop(0.48, '#09264f');
+  sky.addColorStop(1, '#ff4fd8');
+  ctx.fillStyle = sky;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = 'rgba(125, 211, 252, .35)';
-  for (let i = 0; i < 48; i++) {
+  ctx.fillStyle = 'rgba(251, 255, 18, .75)';
+  for (let i = 0; i < 54; i++) {
     const x = (i * 97 + frame * 0.15) % canvas.width;
     const y = (i * 53 + frame * 0.35) % canvas.height;
-    ctx.fillRect(x, y, 2, 2);
+    ctx.fillRect(x, y, 3, 3);
+  }
+
+  ctx.fillStyle = 'rgba(255, 79, 216, .22)';
+  for (let i = 0; i < 9; i++) {
+    const x = (i * 83 + frame * 0.55) % canvas.width;
+    ctx.beginPath();
+    ctx.arc(x, 52 + i * 34, 12 + (i % 3) * 5, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   if (catImage.complete) {
@@ -106,14 +120,14 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Use arrow keys or WASD to guide the black star cat.', 24, 36);
+    ctx.fillText('Cat unchanged. Everything else: randomized.', 24, 36);
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
-  statusEl.textContent = 'Black star cat dodging with arrows or WASD';
+  statusEl.textContent = 'Banana space disco mode';
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);
