@@ -6,7 +6,7 @@ const statusEl = document.querySelector('#status');
 const startBtn = document.querySelector('#start');
 const resetBtn = document.querySelector('#reset');
 
-const pilot = { x: 340, y: 360, w: 44, h: 36, emoji: '🚀', name: 'Nubsterz Star Runner' };
+const pilot = { x: 340, y: 360, w: 44, h: 36, emoji: '🐱', name: 'Nubsterz Star Cat' };
 let meteors = [];
 let score = 0;
 let level = 1;
@@ -61,7 +61,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked! Try dodging with arrows or WASD.';
+      statusEl.textContent = 'Bonked! The star cat needs another try.';
       draw();
       return;
     }
@@ -98,14 +98,14 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Use arrow keys or WASD to dodge meteors.', 24, 36);
+    ctx.fillText('Use arrow keys or WASD to guide the star cat.', 24, 36);
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
-  statusEl.textContent = 'Dodging with arrows or WASD';
+  statusEl.textContent = 'Star cat dodging with arrows or WASD';
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);

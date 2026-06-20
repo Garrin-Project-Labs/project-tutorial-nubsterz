@@ -11,7 +11,7 @@
     <section class="hero">
       <p class="eyebrow">Nubsterz's first OpenClaw project</p>
       <h1>Nubsterz Meteor Dash</h1>
-      <p id="tagline">Welcome, Nubsterz Star Runner. Your meteor-dodging adventure starts here.</p>
+      <p id="tagline">Welcome, Nubsterz Star Cat. Your meteor-dodging adventure starts here.</p>
     </section>
 
     <section class="game-card" aria-label="Unfinished Dodge the Meteors starter game">
@@ -25,7 +25,7 @@
         <button id="start">Start Nubsterz Meteor Dash</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move with arrow keys or WASD. Dodge the meteors as long as you can!</p>
+      <p class="hint">Move the star cat with arrow keys or WASD. Dodge the meteors as long as you can!</p>
     </section>
 
     <section class="quests">
@@ -33,7 +33,7 @@
       <ol>
         <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
         <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
-        <li><strong>Pick the vibe:</strong> choose colors, emoji, or background style.</li>
+        <li><strong>Pick the vibe:</strong> first vibe upgrade: the rocket is now a star cat.</li>
         <li><strong>Add a twist:</strong> add a bonus, shield, level rule, or another tiny mechanic.</li>
         <li><strong>Make your own quest:</strong> choose one thing you want to improve.</li>
       </ol>
