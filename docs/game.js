@@ -11,6 +11,12 @@ catImage.src = 'assets/nubsterz-cat.png';
 catImage.addEventListener('load', draw);
 
 const pilot = { x: 340, y: 326, w: 64, h: 74, name: 'Nubsterz Black Star Cat' };
+const fallingThings = ['🚕', '🛵', '💿', '📱', '💾', '🧃'];
+const keys = new Set();
+const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
+const slowModeLength = 3650;
+const melody = [330, 392, 494, 523, 494, 392, 440, 587];
+
 let meteors = [];
 let score = 0;
 let level = 1;
@@ -18,9 +24,11 @@ let running = false;
 let lastSpawn = 0;
 let frame = 0;
 let nextSpawnDelay = 700;
-const fallingThings = ['🚕', '🛵', '💿', '📱', '💾', '🧃'];
-const keys = new Set();
-const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
+let slowModeUntil = 0;
+let lastMeowMilestone = 0;
+let audioContext;
+let musicTimer;
+let melodyStep = 0;
 
 function reset() {
   pilot.x = canvas.width / 2 - pilot.w / 2;
@@ -29,8 +37,11 @@ function reset() {
   level = 1;
   frame = 0;
   nextSpawnDelay = 700;
+  slowModeUntil = 0;
+  lastMeowMilestone = 0;
   running = false;
   statusEl.textContent = 'Ready for launch';
+  stopMusic();
   updateHud();
   draw();
 }
@@ -40,9 +51,69 @@ function updateHud() {
   levelEl.textContent = level;
 }
 
+function ensureAudio() {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return null;
+  if (!audioContext) audioContext = new AudioContext();
+  if (audioContext.state === 'suspended') audioContext.resume();
+  return audioContext;
+}
+
+function playTone(frequency, duration = 0.12, type = 'square', volume = 0.05) {
+  const audio = ensureAudio();
+  if (!audio) return;
+  const oscillator = audio.createOscillator();
+  const gain = audio.createGain();
+  oscillator.type = type;
+  oscillator.frequency.value = frequency;
+  gain.gain.setValueAtTime(volume, audio.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + duration);
+  oscillator.connect(gain);
+  gain.connect(audio.destination);
+  oscillator.start();
+  oscillator.stop(audio.currentTime + duration);
+}
+
+function playMeow() {
+  playTone(740, 0.08, 'square', 0.08);
+  setTimeout(() => playTone(560, 0.12, 'square', 0.07), 75);
+}
+
+function checkScoreMilestone(oldScore) {
+  const newMilestone = Math.floor(score / 10);
+  if (newMilestone > lastMeowMilestone && score > oldScore) {
+    lastMeowMilestone = newMilestone;
+    playMeow();
+  }
+}
+
+function addScore(points) {
+  const oldScore = score;
+  score += points;
+  checkScoreMilestone(oldScore);
+  updateHud();
+}
+
+function startMusic() {
+  if (musicTimer) return;
+  ensureAudio();
+  musicTimer = setInterval(() => {
+    if (!running) return;
+    playTone(melody[melodyStep % melody.length], 0.09, 'square', 0.025);
+    if (melodyStep % 4 === 0) playTone(melody[(melodyStep + 2) % melody.length] / 2, 0.11, 'triangle', 0.015);
+    melodyStep++;
+  }, 150);
+}
+
+function stopMusic() {
+  clearInterval(musicTimer);
+  musicTimer = undefined;
+}
+
 function spawnMeteor() {
-  const size = 26 + Math.random() * 22;
-  const face = fallingThings[Math.floor(Math.random() * fallingThings.length)];
+  const isYarn = Math.random() < 0.18;
+  const size = isYarn ? 34 : 26 + Math.random() * 22;
+  const face = isYarn ? '🧶' : fallingThings[Math.floor(Math.random() * fallingThings.length)];
   const angle = -0.9 + Math.random() * 1.8;
   const speed = 1.8 + Math.random() * 2.7;
   meteors.push({
@@ -53,7 +124,8 @@ function spawnMeteor() {
     dy: Math.cos(angle) * speed,
     spin: -0.08 + Math.random() * 0.16,
     tilt: 0,
-    face
+    face,
+    isYarn
   });
 }
 
@@ -71,6 +143,9 @@ function step(timestamp) {
   if (!running) return;
   frame++;
 
+  const slowMode = timestamp < slowModeUntil;
+  const speedMultiplier = slowMode ? 0.45 : 1;
+
   if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) pilot.x -= 6;
   if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) pilot.x += 6;
   pilot.x = Math.max(0, Math.min(canvas.width - pilot.w, pilot.x));
@@ -81,19 +156,47 @@ function step(timestamp) {
   }
 
   for (const meteor of meteors) {
-    meteor.x += meteor.dx;
-    meteor.y += meteor.dy;
-    meteor.tilt += meteor.spin;
+    meteor.x += meteor.dx * speedMultiplier;
+    meteor.y += meteor.dy * speedMultiplier;
+    meteor.tilt += meteor.spin * speedMultiplier;
   }
-  meteors = meteors.filter(m => m.y < canvas.height + m.size && m.x > -m.size * 2 && m.x < canvas.width + m.size * 2);
 
+  const activeMeteors = [];
   for (const meteor of meteors) {
-    if (hit(pilot, meteor)) {
-      running = false;
-      statusEl.textContent = 'Bonked in the neon street! The cat needs another try.';
-      draw();
-      return;
+    if (meteor.y >= canvas.height + meteor.size) {
+      if (!meteor.isYarn) {
+        addScore(1);
+        statusEl.textContent = 'Clean dodge! +1 score.';
+      }
+      continue;
     }
+    if (meteor.x > -meteor.size * 2 && meteor.x < canvas.width + meteor.size * 2) {
+      activeMeteors.push(meteor);
+    }
+  }
+  meteors = activeMeteors;
+
+  for (let i = meteors.length - 1; i >= 0; i--) {
+    const meteor = meteors[i];
+    if (!hit(pilot, meteor)) continue;
+
+    if (meteor.isYarn) {
+      addScore(5);
+      meteors.splice(i, 1);
+      if (Math.random() < 0.1) {
+        slowModeUntil = timestamp + slowModeLength;
+        statusEl.textContent = 'Glowing yarn power-up! Slow mode for 3.65 seconds.';
+      } else {
+        statusEl.textContent = 'Caught glowing yarn! +5 score.';
+      }
+      continue;
+    }
+
+    running = false;
+    stopMusic();
+    statusEl.textContent = 'Bonked in the neon street! The cat needs another try.';
+    draw();
+    return;
   }
 
   draw();
@@ -148,6 +251,14 @@ function draw() {
   ctx.fillStyle = '#ff2bd6';
   ctx.fillRect(0, 348, canvas.width, 3);
 
+  if (slowModeUntil > performance.now()) {
+    ctx.fillStyle = 'rgba(250, 255, 0, .12)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#faff00';
+    ctx.font = '18px sans-serif';
+    ctx.fillText('SLOW MODE', canvas.width - 128, 36);
+  }
+
   if (catImage.complete) {
     ctx.drawImage(catImage, pilot.x, pilot.y, pilot.w, pilot.h);
   } else {
@@ -164,6 +275,14 @@ function draw() {
     ctx.save();
     ctx.translate(meteor.x + meteor.size / 2, meteor.y + meteor.size / 2);
     ctx.rotate(meteor.tilt);
+    if (meteor.isYarn) {
+      ctx.shadowColor = '#faff00';
+      ctx.shadowBlur = 22;
+      ctx.fillStyle = '#faff00';
+    } else {
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#eef6ff';
+    }
     ctx.fillText(meteor.face, -meteor.size / 2, meteor.size / 2);
     ctx.restore();
   }
@@ -179,6 +298,7 @@ startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
   statusEl.textContent = 'Neon street dodge mode';
+  startMusic();
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);
