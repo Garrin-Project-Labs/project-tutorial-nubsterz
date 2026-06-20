@@ -1,9 +1,9 @@
 const WIDTH = 960;
-const HEIGHT = 720;
+const HEIGHT = 820;
 const GAME_W = 720;
 const GAME_H = 420;
 const GAME_X = 120;
-const GAME_Y = 116;
+const GAME_Y = 145;
 const SLOW_MODE_LENGTH = 3650;
 const FALLING_THINGS = ['🚕', '🛵', '💿', '📱', '💾', '🧃'];
 const MELODY = [330, 392, 494, 523, 494, 392, 440, 587];
@@ -33,9 +33,9 @@ class CyberCatScene extends Phaser.Scene {
   }
 
   createArcadeCabinet() {
-    this.add.rectangle(WIDTH / 2, HEIGHT / 2, 880, 690, 0x160725)
+    this.add.rectangle(WIDTH / 2, HEIGHT / 2, 900, 790, 0x160725)
       .setStrokeStyle(8, 0x2c0a48);
-    this.add.rectangle(WIDTH / 2, 58, 780, 78, 0x050014)
+    this.add.rectangle(WIDTH / 2, 58, 790, 72, 0x050014)
       .setStrokeStyle(7, 0xfaff00)
       .setName('marquee-bg');
     this.add.text(WIDTH / 2, 58, 'NUBSTERZ CYBER CAT RUN', {
@@ -47,17 +47,17 @@ class CyberCatScene extends Phaser.Scene {
       shadow: { color: '#faff00', blur: 16, fill: true }
     }).setOrigin(0.5);
 
-    this.add.rectangle(WIDTH / 2, 326, 782, 484, 0x02030a)
+    this.add.rectangle(WIDTH / 2, 356, 790, 486, 0x02030a)
       .setStrokeStyle(12, 0x11152c);
-    this.add.rectangle(WIDTH / 2, 628, 780, 142, 0x101132)
+    this.add.rectangle(WIDTH / 2, 700, 790, 170, 0x101132)
       .setStrokeStyle(4, 0x00f5ff, 0.45);
 
-    this.add.ellipse(332, 632, 86, 54, 0x080a18).setStrokeStyle(4, 0x00f5ff, 0.55);
-    this.add.rectangle(342, 600, 16, 58, 0xfaff00).setRotation(-0.28);
-    this.add.circle(334, 572, 22, 0xff2bd6);
+    this.add.ellipse(250, 706, 86, 54, 0x080a18).setStrokeStyle(4, 0x00f5ff, 0.55);
+    this.add.rectangle(260, 674, 16, 58, 0xfaff00).setRotation(-0.28);
+    this.add.circle(252, 646, 22, 0xff2bd6);
     [0x00f5ff, 0xff2bd6, 0xfaff00].forEach((color, index) => {
-      this.add.circle(584 + index * 54, 626, 19, color);
-      this.add.circle(584 + index * 54, 633, 19, 0x000000, 0.22);
+      this.add.circle(700 + index * 54, 706, 19, color);
+      this.add.circle(700 + index * 54, 713, 19, 0x000000, 0.22);
     });
   }
 
@@ -95,10 +95,10 @@ class CyberCatScene extends Phaser.Scene {
   }
 
   createHud() {
-    this.scoreText = this.add.text(170, 558, 'Score 0', this.hudStyle()).setOrigin(0.5);
-    this.levelText = this.add.text(300, 558, 'Level 1', this.hudStyle()).setOrigin(0.5);
-    this.statusText = this.add.text(540, 558, 'Status Ready', this.hudStyle()).setOrigin(0.5);
-    this.guideText = this.add.text(WIDTH / 2, 682,
+    this.scoreText = this.add.text(230, 622, 'Score 0', this.hudStyle()).setOrigin(0.5);
+    this.levelText = this.add.text(365, 622, 'Level 1', this.hudStyle()).setOrigin(0.5);
+    this.statusText = this.add.text(WIDTH / 2, 656, 'Status Ready', this.statusStyle()).setOrigin(0.5);
+    this.guideText = this.add.text(WIDTH / 2, 774,
       'Move: Arrow keys or WASD   •   Dodge: +1   •   Glowing yarn: +5   •   Rare yarn power-up: slow mode 3.65s', {
         fontFamily: 'Arial, sans-serif',
         fontSize: '17px',
@@ -122,10 +122,21 @@ class CyberCatScene extends Phaser.Scene {
     this.wasd = this.input.keyboard.addKeys('W,A,S,D');
     this.input.keyboard.on('keydown-SPACE', () => this.startGame());
 
-    this.startButton = this.add.text(440, 624, 'START GAME', this.buttonStyle(0x00f5ff)).setOrigin(0.5).setInteractive({ useHandCursor: true });
-    this.resetButton = this.add.text(530, 624, 'RESET', this.buttonStyle(0xff2bd6)).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    this.startButton = this.add.text(430, 706, 'START GAME', this.buttonStyle(0x00f5ff)).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    this.resetButton = this.add.text(545, 706, 'RESET', this.buttonStyle(0xff2bd6)).setOrigin(0.5).setInteractive({ useHandCursor: true });
     this.startButton.on('pointerdown', () => this.startGame());
     this.resetButton.on('pointerdown', () => this.resetGame());
+  }
+
+  statusStyle() {
+    return {
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '16px',
+      color: '#faff00',
+      backgroundColor: 'rgba(0,0,0,.32)',
+      padding: { x: 12, y: 7 },
+      wordWrap: { width: 610 }
+    };
   }
 
   buttonStyle(color) {
