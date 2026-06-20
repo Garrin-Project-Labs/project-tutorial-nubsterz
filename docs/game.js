@@ -41,7 +41,18 @@ function updateHud() {
 function spawnMeteor() {
   const size = 26 + Math.random() * 22;
   const face = fallingThings[Math.floor(Math.random() * fallingThings.length)];
-  meteors.push({ x: Math.random() * (canvas.width - size), y: -size, size, speed: 2.2 + Math.random(), face });
+  const angle = -0.9 + Math.random() * 1.8;
+  const speed = 1.8 + Math.random() * 2.7;
+  meteors.push({
+    x: Math.random() * (canvas.width - size),
+    y: -size,
+    size,
+    dx: Math.sin(angle) * speed,
+    dy: Math.cos(angle) * speed,
+    spin: -0.08 + Math.random() * 0.16,
+    tilt: 0,
+    face
+  });
 }
 
 function hit(a, b) {
@@ -61,8 +72,12 @@ function step(timestamp) {
     lastSpawn = timestamp;
   }
 
-  for (const meteor of meteors) meteor.y += meteor.speed;
-  meteors = meteors.filter(m => m.y < canvas.height + m.size);
+  for (const meteor of meteors) {
+    meteor.x += meteor.dx;
+    meteor.y += meteor.dy;
+    meteor.tilt += meteor.spin;
+  }
+  meteors = meteors.filter(m => m.y < canvas.height + m.size && m.x > -m.size * 2 && m.x < canvas.width + m.size * 2);
 
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
@@ -114,7 +129,11 @@ function draw() {
 
   for (const meteor of meteors) {
     ctx.font = `${meteor.size}px serif`;
-    ctx.fillText(meteor.face, meteor.x, meteor.y + meteor.size);
+    ctx.save();
+    ctx.translate(meteor.x + meteor.size / 2, meteor.y + meteor.size / 2);
+    ctx.rotate(meteor.tilt);
+    ctx.fillText(meteor.face, -meteor.size / 2, meteor.size / 2);
+    ctx.restore();
   }
 
   if (!running) {

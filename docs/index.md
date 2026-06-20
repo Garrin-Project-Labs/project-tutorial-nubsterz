@@ -25,7 +25,7 @@
         <button id="start">Start the banana disco</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move the real black star cat with arrow keys or WASD. Dodge whatever falls out of space!</p>
+      <p class="hint">Move the real black star cat with arrow keys or WASD. Dodge the chaos flying at different speeds and angles!</p>
     </section>
 
     <section class="quests">
@@ -34,7 +34,7 @@
         <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
         <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
         <li><strong>Pick the vibe:</strong> the cat stayed, but the rest became banana space disco chaos.</li>
-        <li><strong>Add a twist:</strong> add a bonus, shield, level rule, or another tiny mechanic.</li>
+        <li><strong>Add a twist:</strong> falling things now fly at different speeds and angles.</li>
         <li><strong>Make your own quest:</strong> choose one thing you want to improve.</li>
       </ol>
       <p>Back in Discord, ask the bot: <code>@G-Claw-Bot give me a quest</code>.</p>
