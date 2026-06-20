@@ -7,15 +7,8 @@
   <link rel="stylesheet" href="game.css" />
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <p class="eyebrow">8-bit neon arcade</p>
-      <h1>Nubsterz Cyber Cat Run</h1>
-      <p id="tagline">Dodge the chaos, catch glowing yarn, and chase a bigger score.</p>
-    </section>
-
+  <main class="shell compact-shell">
     <section class="game-card arcade-cabinet" aria-label="Nubsterz Cyber Cat Run arcade game">
-      <div class="marquee">NUBSTERZ // CYBER CAT RUN</div>
       <canvas id="game" width="720" height="420"></canvas>
       <div class="hud">
         <span>Score <strong id="score">0</strong></span>

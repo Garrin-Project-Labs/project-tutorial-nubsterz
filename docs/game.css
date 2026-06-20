@@ -27,6 +27,9 @@ body {
   margin: 0 auto;
   padding: 32px 0 48px;
 }
+.compact-shell {
+  padding-top: 14px;
+}
 .hero { text-align: center; margin-bottom: 24px; }
 .eyebrow {
   color: var(--accent);
@@ -43,7 +46,7 @@ h1 { margin: 8px 0; font-size: clamp(2.2rem, 7vw, 5rem); }
   border-radius: 18px;
   box-shadow: 0 24px 80px rgba(255, 43, 214, .24), 0 0 42px rgba(0, 245, 255, .18);
   padding: 18px;
-  margin: 18px 0;
+  margin: 0 0 18px;
 }
 .arcade-cabinet {
   position: relative;
@@ -52,18 +55,6 @@ h1 { margin: 8px 0; font-size: clamp(2.2rem, 7vw, 5rem); }
     0 28px 90px rgba(255, 43, 214, .34),
     0 0 56px rgba(0, 245, 255, .24),
     inset 0 0 28px rgba(250, 255, 0, .1);
-}
-.marquee {
-  margin: 0 auto 14px;
-  padding: 10px 14px;
-  width: fit-content;
-  border: 2px solid rgba(250, 255, 0, .8);
-  border-radius: 999px;
-  color: #faff00;
-  background: rgba(0, 0, 0, .32);
-  text-shadow: 0 0 12px #faff00;
-  letter-spacing: .18em;
-  font-weight: 900;
 }
 canvas {
   display: block;
