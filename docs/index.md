@@ -25,14 +25,14 @@
         <button id="start">Start Nubsterz Meteor Dash</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Controls are not built yet. Quest 2 will teach the pilot how to move.</p>
+      <p class="hint">Move with arrow keys or WASD. Dodge the meteors as long as you can!</p>
     </section>
 
     <section class="quests">
       <h2>Tutorial quests</h2>
       <ol>
         <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
-        <li><strong>Choose controls:</strong> add the movement keys so the pilot can dodge.</li>
+        <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
         <li><strong>Pick the vibe:</strong> choose colors, emoji, or background style.</li>
         <li><strong>Add a twist:</strong> add a bonus, shield, level rule, or another tiny mechanic.</li>
         <li><strong>Make your own quest:</strong> choose one thing you want to improve.</li>

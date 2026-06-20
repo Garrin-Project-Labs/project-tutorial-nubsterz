@@ -13,6 +13,8 @@ let level = 1;
 let running = false;
 let lastSpawn = 0;
 let frame = 0;
+const keys = new Set();
+const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
 
 function reset() {
   pilot.x = canvas.width / 2 - pilot.w / 2;
@@ -44,7 +46,9 @@ function step(timestamp) {
   if (!running) return;
   frame++;
 
-  // Quest 2 belongs here: add controls so the pilot can move left and right.
+  if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) pilot.x -= 6;
+  if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) pilot.x += 6;
+  pilot.x = Math.max(0, Math.min(canvas.width - pilot.w, pilot.x));
 
   if (timestamp - lastSpawn > 900) {
     spawnMeteor();
@@ -57,7 +61,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked! Quest 2 will help Nubsterz dodge.';
+      statusEl.textContent = 'Bonked! Try dodging with arrows or WASD.';
       draw();
       return;
     }
@@ -94,15 +98,21 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Nubsterz Meteor Dash: controls arrive in Quest 2.', 24, 36);
+    ctx.fillText('Use arrow keys or WASD to dodge meteors.', 24, 36);
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
-  statusEl.textContent = 'Dodging... sort of';
+  statusEl.textContent = 'Dodging with arrows or WASD';
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);
+window.addEventListener('keydown', event => {
+  if (!moveKeys.has(event.key)) return;
+  event.preventDefault();
+  keys.add(event.key);
+});
+window.addEventListener('keyup', event => keys.delete(event.key));
 reset();
