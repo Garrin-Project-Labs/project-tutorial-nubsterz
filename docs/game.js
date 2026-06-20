@@ -6,7 +6,7 @@ const statusEl = document.querySelector('#status');
 const startBtn = document.querySelector('#start');
 const resetBtn = document.querySelector('#reset');
 
-const pilot = { x: 340, y: 360, w: 44, h: 36, emoji: '🚀', name: 'Pilot' };
+const pilot = { x: 340, y: 360, w: 44, h: 36, emoji: '🚀', name: 'Nubsterz Star Runner' };
 let meteors = [];
 let score = 0;
 let level = 1;
@@ -21,7 +21,7 @@ function reset() {
   level = 1;
   frame = 0;
   running = false;
-  statusEl.textContent = 'Unfinished';
+  statusEl.textContent = 'Ready for launch';
   updateHud();
   draw();
 }
@@ -57,7 +57,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked! Quest 2 will help.';
+      statusEl.textContent = 'Bonked! Quest 2 will help Nubsterz dodge.';
       draw();
       return;
     }
@@ -94,7 +94,7 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Starter game: the pilot cannot move yet.', 24, 36);
+    ctx.fillText('Nubsterz Meteor Dash: controls arrive in Quest 2.', 24, 36);
   }
 }
 

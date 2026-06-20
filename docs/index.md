@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Untitled Meteor Game</title>
+  <title>Nubsterz Meteor Dash</title>
   <link rel="stylesheet" href="game.css" />
 </head>
 <body>
   <main class="shell">
     <section class="hero">
       <p class="eyebrow">Nubsterz's first OpenClaw project</p>
-      <h1>Untitled Meteor Game</h1>
-      <p id="tagline">This tiny starter game is missing the fun parts. Your quests will make it yours.</p>
+      <h1>Nubsterz Meteor Dash</h1>
+      <p id="tagline">Welcome, Nubsterz Star Runner. Your meteor-dodging adventure starts here.</p>
     </section>
 
     <section class="game-card" aria-label="Unfinished Dodge the Meteors starter game">
@@ -22,7 +22,7 @@
         <span>Status: <strong id="status">Unfinished</strong></span>
       </div>
       <div class="controls">
-        <button id="start">Start unfinished game</button>
+        <button id="start">Start Nubsterz Meteor Dash</button>
         <button id="reset">Reset</button>
       </div>
       <p class="hint">Controls are not built yet. Quest 2 will teach the pilot how to move.</p>
@@ -31,7 +31,7 @@
     <section class="quests">
       <h2>Tutorial quests</h2>
       <ol>
-        <li><strong>Make it yours:</strong> replace the placeholder title, pilot name, and welcome text.</li>
+        <li><strong>Make it yours:</strong> title and welcome text updated for Nubsterz.</li>
         <li><strong>Choose controls:</strong> add the movement keys so the pilot can dodge.</li>
         <li><strong>Pick the vibe:</strong> choose colors, emoji, or background style.</li>
         <li><strong>Add a twist:</strong> add a bonus, shield, level rule, or another tiny mechanic.</li>
