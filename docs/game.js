@@ -18,7 +18,7 @@ let running = false;
 let lastSpawn = 0;
 let frame = 0;
 let nextSpawnDelay = 700;
-const fallingThings = ['🍌', '🪩', '🦆', '🌮', '🧃', '😎'];
+const fallingThings = ['🚕', '🛵', '💿', '📱', '💾', '🧃'];
 const keys = new Set();
 const moveKeys = new Set(['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D']);
 
@@ -90,7 +90,7 @@ function step(timestamp) {
   for (const meteor of meteors) {
     if (hit(pilot, meteor)) {
       running = false;
-      statusEl.textContent = 'Bonked by space chaos! The cat needs another try.';
+      statusEl.textContent = 'Bonked in the neon street! The cat needs another try.';
       draw();
       return;
     }
@@ -103,37 +103,50 @@ function step(timestamp) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const sky = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  sky.addColorStop(0, '#040016');
-  sky.addColorStop(0.52, '#071a3f');
-  sky.addColorStop(1, '#19002b');
+  sky.addColorStop(0, '#120018');
+  sky.addColorStop(0.45, '#10124a');
+  sky.addColorStop(1, '#05030d');
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.strokeStyle = 'rgba(0, 245, 255, .22)';
+  ctx.fillStyle = '#060714';
+  ctx.fillRect(0, 292, canvas.width, 128);
+
+  ctx.strokeStyle = 'rgba(0, 245, 255, .32)';
   ctx.lineWidth = 1;
-  for (let x = 0; x < canvas.width; x += 42) {
+  for (let x = -80; x < canvas.width + 120; x += 42) {
     ctx.beginPath();
-    ctx.moveTo(x + (frame * 0.6) % 42, 0);
-    ctx.lineTo(x - 90, canvas.height);
+    ctx.moveTo(canvas.width / 2, 292);
+    ctx.lineTo(x + ((frame * 1.4) % 42), canvas.height);
     ctx.stroke();
   }
 
-  ctx.fillStyle = 'rgba(0, 245, 255, .85)';
-  for (let i = 0; i < 54; i++) {
-    const x = (i * 97 + frame * 0.15) % canvas.width;
-    const y = (i * 53 + frame * 0.35) % canvas.height;
-    ctx.fillRect(x, y, 2, 8);
+  ctx.strokeStyle = 'rgba(255, 43, 214, .42)';
+  for (let y = 308; y < canvas.height; y += 22) {
+    ctx.beginPath();
+    ctx.moveTo(0, y + ((frame * 1.2) % 22));
+    ctx.lineTo(canvas.width, y + ((frame * 1.2) % 22));
+    ctx.stroke();
   }
 
-  ctx.fillStyle = 'rgba(255, 43, 214, .42)';
-  for (let i = 0; i < 10; i++) {
-    const w = 30 + (i % 4) * 18;
-    const h = 50 + (i % 3) * 34;
-    const x = (i * 77 - frame * 0.25) % (canvas.width + 80) - 40;
-    const y = canvas.height - h - (i % 2) * 28;
+  for (let i = 0; i < 11; i++) {
+    const w = 34 + (i % 4) * 18;
+    const h = 80 + (i % 5) * 28;
+    const x = i * 70 - 30;
+    const y = 292 - h;
+    ctx.fillStyle = i % 2 ? 'rgba(4, 8, 28, .95)' : 'rgba(14, 10, 42, .95)';
     ctx.fillRect(x, y, w, h);
-    ctx.fillStyle = i % 2 ? 'rgba(0, 245, 255, .55)' : 'rgba(255, 43, 214, .42)';
+    ctx.fillStyle = i % 2 ? '#00f5ff' : '#ff2bd6';
+    for (let wy = y + 12; wy < 285; wy += 22) {
+      ctx.fillRect(x + 8, wy, 8, 10);
+      ctx.fillRect(x + w - 16, wy + 4, 8, 10);
+    }
   }
+
+  ctx.fillStyle = '#faff00';
+  ctx.fillRect(0, 332, canvas.width, 4);
+  ctx.fillStyle = '#ff2bd6';
+  ctx.fillRect(0, 348, canvas.width, 3);
 
   if (catImage.complete) {
     ctx.drawImage(catImage, pilot.x, pilot.y, pilot.w, pilot.h);
@@ -158,14 +171,14 @@ function draw() {
   if (!running) {
     ctx.fillStyle = 'rgba(255,255,255,.84)';
     ctx.font = '18px sans-serif';
-    ctx.fillText('Cyberpunk city loaded. Cat unchanged.', 24, 36);
+    ctx.fillText('Neon street loaded. Cat unchanged.', 24, 36);
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (running) return;
   running = true;
-  statusEl.textContent = 'Cyberpunk dodge mode';
+  statusEl.textContent = 'Neon street dodge mode';
   requestAnimationFrame(step);
 });
 resetBtn.addEventListener('click', reset);

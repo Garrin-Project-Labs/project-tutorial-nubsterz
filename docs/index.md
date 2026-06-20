@@ -11,7 +11,7 @@
     <section class="hero">
       <p class="eyebrow">Nubsterz's neon future city</p>
       <h1>Nubsterz Cyber Cat Run</h1>
-      <p id="tagline">The cat stays. The background is now cyberpunk.</p>
+      <p id="tagline">The cat stays. The game is now a neon cyberpunk street.</p>
     </section>
 
     <section class="game-card" aria-label="Randomized cat dodge game">
@@ -25,7 +25,7 @@
         <button id="start">Start cyberpunk dodge</button>
         <button id="reset">Reset</button>
       </div>
-      <p class="hint">Move the real black star cat with arrow keys or WASD through the neon city.</p>
+      <p class="hint">Move the real black star cat with arrow keys or WASD through the neon street.</p>
     </section>
 
     <section class="quests">
@@ -35,7 +35,7 @@
         <li><strong>Choose controls:</strong> arrow keys and WASD now move the pilot.</li>
         <li><strong>Pick the vibe:</strong> the cat stayed, but the rest became banana space disco chaos.</li>
         <li><strong>Add a twist:</strong> falling things now arrive in surprise-sized bursts.</li>
-        <li><strong>Make your own quest:</strong> cyberpunk background added while leaving the cat alone.</li>
+        <li><strong>Make your own quest:</strong> space theme replaced with a neon cyberpunk street.</li>
       </ol>
       <p>Back in Discord, ask the bot: <code>@G-Claw-Bot give me a quest</code>.</p>
     </section>
